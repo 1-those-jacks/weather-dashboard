@@ -24,21 +24,36 @@ function searchByCity(event){
 	addCity.textContent = searchResponse;
 	searchHistory.appendChild(addCity);
 	// search.weather is added to current-weather
-	
-		// add date
-		// add icon of weather
-		// add weather conditions
-		// add the temperature
-		// add the humidity
-		// add the wind speed
+	// getApi(returnDates){
+
+	// };
+	for (var i = 0; i < 5; i++){
+		// add date - dateData
+		var addDate = document.createElement("h4");
+		addDate.textContent = "Date: ";
+		fiveDayForecast.appendChild(addDate);
+		// add icon of weather - iconImg
+		var addIcon = document.createElement("div");
+		addIcon.textContent = "Weather: ";
+		fiveDayForecast.appendChild(addIcon);
+		// add weather conditions - weatherConditionData
+		var addWeatherCondition = document.createElement("h5");
+		addWeatherCondition.textContent = "Weather Condition: ";
+		fiveDayForecast.appendChild(addWeatherCondition);
+		// add the temperature - tempData
+		var addTemp = document.createElement("h5");
+		addTemp.textContent = "Temperature: ";
+		fiveDayForecast.appendChild(addTemp);
+		// add the humidity - humidityData
+		var addHumidity = document.createElement("h5");
+		addHumidity.textContent = "Humidity: ";
+		fiveDayForecast.appendChild(addHumidity);
+		// add the wind speed - windSpeedData
+		var addWindSpeed = document.createElement("h5");
+		addWindSpeed.textContent = "Wind Speed: ";
+		fiveDayForecast.appendChild(addWindSpeed);
+	}
 	// search.weather is added to five-day
-		// create five divs
-		// for loop each div
-			// display the date
-			// display icon of weather
-			// display temperature
-			// display the wind speed
-			// display the humidity
 }
 
 function searchByHistory(){
@@ -55,8 +70,6 @@ function	getApi() {
 			console.log(data);
 		})
 }
-
-getApi();
 
 searchBtn.addEventListener("click", searchByCity);
 
