@@ -6,14 +6,25 @@ var fiveDayForecast = document.querySelector("#five-day");
 
 var requestURL = "https://api.openweathermap.org/data/2.5/forecast?q=chicago&appid=b2396c411f7ee6c8e084346e085d556d";
 
-function searchByCity(){
+function searchByCity(event){
 	// prevent default/stop propagation or something
+	event.preventDefault();
+	console.log(event);
 	// input has data entered into it
+	var searchResponse = searchInput.value;
+	console.log(searchResponse);
 	// button is pressed
 	// information is saved in local storage
+	localStorage.setItem("search", JSON.stringify(searchResponse));
 	// search.text is added to five-day
+	var cityName = document.querySelector("span");
+	cityName.textContent = searchResponse;
 	// search.text is added to history - as a button
+	var addCity = document.createElement("button");
+	addCity.textContent = searchResponse;
+	searchHistory.appendChild(addCity);
 	// search.weather is added to current-weather
+	
 		// add date
 		// add icon of weather
 		// add weather conditions
