@@ -24,8 +24,8 @@ function searchByCity(event){
 	addCity.textContent = searchResponse;
 	searchHistory.appendChild(addCity);
 // add UL and then make button LI
-	// search.weather is added to current-weather
-			// target history button
+// search.weather is added to current-weather
+// target history button
 
 		// objectArray.city.name
 	function	getApi() {
@@ -35,10 +35,25 @@ function searchByCity(event){
 				if (response.ok) {
 					response.json().then(function (data) {
 						console.log(data.city);
+						console.log(data.list[0]);
 						console.log(data.list);
-						for (var i = 0; i < data.list.length; i++) {
-							console.log(data.list[i]);
-						}
+						// am going to have to change increment value
+						for (var i = 0; i < 41; i += 8) {
+							// console.log(data.list[i]);
+							var dateData = data.list[i].dt_txt;
+							// var iconImg = ;
+							var weatherConditionData = data.list[i].weather[0].main;
+							var tempData = data.list[i].main.temp;
+							var humidityData = data.list[i].main.humidity;
+							var windSpeedData = data.list[i].wind.speed;
+							var forecastData = {
+								dateData, 
+								weatherConditionData, 
+								tempData, 
+								humidityData, 
+								windSpeedData};
+							console.log(forecastData);
+							}
 					});
 				} else {
 					alert("ERROR: " + response.statusText);
@@ -48,14 +63,6 @@ function searchByCity(event){
 				alert(error);
 			});
 		};
-						// function displayRepos(city, searchTerm){
-		
-		// 				console.log(data.list[i]);
-		// 				return;
-		// 			};
-		// // 			}
-		// 			)
-		// });
 
 		for (var i = 0; i < 5; i++){
 		// add date - dateData
