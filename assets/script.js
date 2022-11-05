@@ -50,11 +50,6 @@ function appendData(weatherData) {
 	var tempData = weatherData[i].main.temp;
 	var humidityData = weatherData[i].main.humidity;
 	var windSpeedData = weatherData[i].wind.speed;
-	localStorage.setItem("weather", JSON.stringify(weatherConditionData));
-	localStorage.setItem("temp", JSON.parse(tempData));
-	localStorage.setItem("humidity", JSON.parse(humidityData));
-	localStorage.setItem("wind", JSON.parse(windSpeedData));
-
 
 	var cityName = document.createElement("h3");
 	cityName.textContent = "Five Day Forecast for " + JSON.parse(localStorage.getItem("search"));
@@ -65,7 +60,7 @@ function appendData(weatherData) {
 	createCon.appendChild(addDate);
 	// add icon of weather - iconImg
 	var addIcon = document.createElement("div");
-	addIcon.textContent = "Weather: " + JSON.parse(localStorage.getItem("weather"));
+	addIcon.textContent = "Weather: " + weatherConditionData;
 	createCon.appendChild(addIcon);
 	// add weather conditions - weatherConditionData
 	var addWeatherCondition = document.createElement("h5");
@@ -73,15 +68,15 @@ function appendData(weatherData) {
 	createCon.appendChild(addWeatherCondition);
 	// add the temperature - tempData
 	var addTemp = document.createElement("h5");
-	addTemp.textContent = "Temperature: " + JSON.parse(localStorage.getItem("temp"));
+	addTemp.textContent = "Temperature: " + tempData;
 	createCon.appendChild(addTemp);
 	// add the humidity - humidityData
 	var addHumidity = document.createElement("h5");
-	addHumidity.textContent = "Humidity: " + JSON.parse(localStorage.getItem("humidity"));
+	addHumidity.textContent = "Humidity: " + humidityData;
 	createCon.appendChild(addHumidity);
 	// add the wind speed - windSpeedData
 	var addWindSpeed = document.createElement("h5");
-	addWindSpeed.textContent = "Wind Speed: " + JSON.parse(localStorage.getItem("wind"));
+	addWindSpeed.textContent = "Wind Speed: " + windSpeedData;
 	createCon.appendChild(addWindSpeed);
 	}
 }
@@ -92,6 +87,12 @@ searchBtn.addEventListener("click", function checkData(event) {
 		searchByCity();
 	} else {
 		console.log("Working");
-		removeCon.removeChild(createCon);
+		for (var i = 0; i < 6; i++){
+		for (var j = 0; j < createCon.children.length; i++){
+		createCon.removeChild(createCon.children[j]);
+		}
 	}
+		removeCon.removeChild(createCon);
+		searchByCity();
+}
 });
