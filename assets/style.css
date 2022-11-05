@@ -1,0 +1,28 @@
+#container  {
+	padding-top: 3em;
+}
+
+#current-weather{
+	border-color: black;
+	border-width: 1em;
+}
+
+.column {
+	border-color: black;
+	border-width: 1em;
+}
+
+div {
+	padding-top: 2em;
+	border: 1em;
+	border-color: black;
+}
+h1 {
+	font-size: 3em;
+}
+
+header {
+	display: flex;
+	border: 1em;
+	justify-content: center;
+}

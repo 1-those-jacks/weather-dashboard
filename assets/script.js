@@ -5,30 +5,26 @@ var searchHistory = document.querySelector("#search-history");
 var fiveDayForecast = document.querySelector("#five-day");
 
 
-function searchByCity(event){
-	
+function searchByCity(event) {
 	// prevent default/stop propagation or something
 	event.preventDefault();
-	// console.log(event);
 	// input has data entered into it
 	var searchResponse = searchInput.value;
 	console.log(searchResponse);
-	// button is pressed
 	// information is saved in local storage
 	localStorage.setItem("search", JSON.stringify(searchResponse));
 	// search.text is added to five-day
 	var cityName = document.querySelector("h3");
-	cityName.textContent = searchResponse;
+	cityName.textContent = "Five Day Forecast for " + searchResponse;
 	// search.text is added to history - as a button
+	// add UL and then make button LI
 	var addCity = document.createElement("button");
 	addCity.textContent = searchResponse;
 	searchHistory.appendChild(addCity);
-// add UL and then make button LI
-// search.weather is added to current-weather
-// target history button
+	getApi(searchResponse);
+}
 
-		// objectArray.city.name
-	function	getApi() {
+function getApi(searchResponse) {
 		var requestURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + "" + searchResponse + "" + "&appid=b2396c411f7ee6c8e084346e085d556d";
 		fetch(requestURL)
 			.then(function (response) {
@@ -37,62 +33,52 @@ function searchByCity(event){
 						console.log(data.city);
 						console.log(data.list[0]);
 						console.log(data.list);
-						// am going to have to change increment value
-						for (var i = 0; i < 41; i += 8) {
-							// console.log(data.list[i]);
-							var dateData = data.list[i].dt_txt;
-							// var iconImg = ;
-							var weatherConditionData = data.list[i].weather[0].main;
-							var tempData = data.list[i].main.temp;
-							var humidityData = data.list[i].main.humidity;
-							var windSpeedData = data.list[i].wind.speed;
-							var forecastData = {
-								dateData, 
-								weatherConditionData, 
-								tempData, 
-								humidityData, 
-								windSpeedData};
-							console.log(forecastData);
-							}
-					});
-				} else {
-					alert("ERROR: " + response.statusText);
-				}
-			})
-			.catch(function (error) {
-				alert(error);
-			});
-		};
+						appendData(data.list);
+					})}})}
 
-		for (var i = 0; i < 5; i++){
-		// add date - dateData
-		var addDate = document.createElement("h4");
-		addDate.textContent = "Date: ";
-		fiveDayForecast.appendChild(addDate);
-		// add icon of weather - iconImg
-		var addIcon = document.createElement("div");
-		addIcon.textContent = "Weather: ";
-		fiveDayForecast.appendChild(addIcon);
-		// add weather conditions - weatherConditionData
-		var addWeatherCondition = document.createElement("h5");
-		addWeatherCondition.textContent = "Weather Condition: ";
-		fiveDayForecast.appendChild(addWeatherCondition);
-		// add the temperature - tempData
-		var addTemp = document.createElement("h5");
-		addTemp.textContent = "Temperature: ";
-		fiveDayForecast.appendChild(addTemp);
-		// add the humidity - humidityData
-		var addHumidity = document.createElement("h5");
-		addHumidity.textContent = "Humidity: ";
-		fiveDayForecast.appendChild(addHumidity);
-		// add the wind speed - windSpeedData
-		var addWindSpeed = document.createElement("h5");
-		addWindSpeed.textContent = "Wind Speed: ";
-		fiveDayForecast.appendChild(addWindSpeed);
+
+function appendData(weatherData) {
+	for (var i = 0; i < 41; i += 8) {
+	// var dateData = data.list[i].dt_txt;
+	// var iconImg = ;
+	var weatherConditionData = weatherData[i].weather[0].main;
+	var tempData = weatherData[i].main.temp;
+	var humidityData = weatherData[i].main.humidity;
+	var windSpeedData = weatherData[i].wind.speed;
+	localStorage.setItem("weather", JSON.stringify(weatherConditionData));
+	localStorage.setItem("temp", JSON.parse(tempData));
+	localStorage.setItem("humidity", JSON.parse(humidityData));
+	localStorage.setItem("wind", JSON.parse(windSpeedData));
+	// add date - dateData
+	var addDate = document.createElement("h4");
+	addDate.textContent = "Date: ";
+	fiveDayForecast.appendChild(addDate);
+	// add icon of weather - iconImg
+	var addIcon = document.createElement("div");
+	addIcon.textContent = "Weather: " + JSON.parse(localStorage.getItem("weather"));
+	fiveDayForecast.appendChild(addIcon);
+	// add weather conditions - weatherConditionData
+	var addWeatherCondition = document.createElement("h5");
+	addWeatherCondition.textContent = "Weather Condition: ";
+	fiveDayForecast.appendChild(addWeatherCondition);
+	// add the temperature - tempData
+	var addTemp = document.createElement("h5");
+	addTemp.textContent = "Temperature: " + JSON.parse(localStorage.getItem("temp"));
+	fiveDayForecast.appendChild(addTemp);
+	// add the humidity - humidityData
+	var addHumidity = document.createElement("h5");
+	addHumidity.textContent = "Humidity: " + JSON.parse(localStorage.getItem("humidity"));
+	fiveDayForecast.appendChild(addHumidity);
+	// add the wind speed - windSpeedData
+	var addWindSpeed = document.createElement("h5");
+	addWindSpeed.textContent = "Wind Speed: " + JSON.parse(localStorage.getItem("wind"));
+	fiveDayForecast.appendChild(addWindSpeed);
 	}
-	// search.weather is added to five-day
-	getApi();
 }
-
-			// on click event run search by city
-searchBtn.addEventListener("click", searchByCity)
+// clear data
+function removeData(){
+	document.remove();
+}
+// target history button
+// on click event run search by city
+searchBtn.addEventListener("click", searchByCity, removeData)
