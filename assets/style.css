@@ -13,10 +13,10 @@
 }
 
 div {
-	padding-top: 2em;
-	border: 1em;
+	border: 5px;
 	border-color: black;
 }
+
 h1 {
 	font-size: 3em;
 }
@@ -25,4 +25,9 @@ header {
 	display: flex;
 	border: 1em;
 	justify-content: center;
+}
+
+.weather {
+	border: 1em;
+	border-color: black;
 }
