@@ -8,18 +8,20 @@ var removeCon = document.getElementById("five-day");
 
 
 
-function searchByCity() {
+function searchByCity(event) {
 	// prevent default/stop propagation or something
 	// event.preventDefault();
 	// input has data entered into it
 	var searchResponse = searchInput.value;
-	console.log(searchResponse);
 	// information is saved in local storage
 	localStorage.setItem("search", JSON.stringify(searchResponse));
-	// search.text is added to five-day
 	// search.text is added to history - as a button
-	// add UL and then make button LI
 	var addCity = document.createElement("button");
+	addCity.classList = "check";
+	addCity.addEventListener("click", function (){
+		console.log(addCity.innerHTML);
+		checkData2(addCity.innerHTML);
+	});
 	addCity.textContent = searchResponse;
 	searchHistory.appendChild(addCity);
 	getApi(searchResponse);
@@ -81,12 +83,21 @@ function appendData(weatherData) {
 	}
 }
 // target history button
+function checkData2(addCityBtn){
+		for (var i = 0; i < 6; i++){
+		for (var j = 0; j < createCon.children.length; i++){
+		createCon.removeChild(createCon.children[j]);
+		}
+	}
+		removeCon.removeChild(createCon);
+		searchByCity(addCityBtn);
+}
+
 // on click event run search by city
 searchBtn.addEventListener("click", function checkData(event) {
 	if (removeCon.textContent == ""){
 		searchByCity();
 	} else {
-		console.log("Working");
 		for (var i = 0; i < 6; i++){
 		for (var j = 0; j < createCon.children.length; i++){
 		createCon.removeChild(createCon.children[j]);
